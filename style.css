@@ -1,0 +1,590 @@
+/* =========================================================
+   Arifin — Data Analyst Portfolio
+   style.css
+   ========================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap');
+
+/* -----------------------------------------
+   1. Design tokens
+------------------------------------------ */
+:root {
+  /* Color */
+  --color-bg: #FAFBFA;
+  --color-bg-alt: #F0F5F4;
+  --color-surface: #FFFFFF;
+  --color-ink: #12181C;
+  --color-ink-soft: #4B5A5C;
+  --color-ink-faint: #7C8B8D;
+  --color-border: #DEE6E4;
+  --color-accent: #0F6F63;
+  --color-accent-dark: #0B564D;
+  --color-accent-tint: #DEF1EC;
+
+  /* Type */
+  --font-display: 'Space Grotesk', 'Segoe UI', sans-serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+  --fs-h1: clamp(2.6rem, 5vw + 1rem, 4.4rem);
+  --fs-h2: clamp(1.6rem, 2.2vw + 1rem, 2.35rem);
+  --fs-h3: 1.15rem;
+  --fs-body: 1rem;
+  --fs-small: 0.875rem;
+
+  /* Spacing scale */
+  --space-1: 0.5rem;
+  --space-2: 1rem;
+  --space-3: 1.5rem;
+  --space-4: 2.5rem;
+  --space-5: 4rem;
+  --space-6: 6rem;
+  --space-7: 8rem;
+
+  /* Layout */
+  --container-w: 1120px;
+  --radius: 6px;
+  --border-w: 1px;
+
+  /* Motion */
+  --ease: cubic-bezier(0.4, 0, 0.2, 1);
+  --speed: 220ms;
+}
+
+/* -----------------------------------------
+   2. Reset
+------------------------------------------ */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+h1, h2, h3 {
+  font-family: var(--font-display);
+  color: var(--color-ink);
+  line-height: 1.15;
+  font-weight: 600;
+}
+
+p {
+  color: var(--color-ink-soft);
+}
+
+strong {
+  color: var(--color-ink);
+  font-weight: 600;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* -----------------------------------------
+   3. Layout helpers
+------------------------------------------ */
+.container {
+  width: 100%;
+  max-width: var(--container-w);
+  margin-inline: auto;
+  padding-inline: var(--space-3);
+}
+
+.section {
+  padding-block: var(--space-6);
+}
+
+.section-alt {
+  background-color: var(--color-bg-alt);
+  border-block: var(--border-w) solid var(--color-border);
+}
+
+.section-label {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-size: var(--fs-small);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: var(--color-accent);
+  margin-bottom: var(--space-1);
+}
+
+.section-title {
+  max-width: 34rem;
+  font-size: var(--fs-h2);
+  margin-bottom: var(--space-4);
+}
+
+/* -----------------------------------------
+   4. Navigation
+------------------------------------------ */
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background-color: rgba(250, 251, 250, 0.85);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: var(--border-w) solid var(--color-border);
+}
+
+.nav-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 4.25rem;
+}
+
+.logo {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--color-ink);
+}
+
+.logo span {
+  color: var(--color-accent);
+}
+
+.navbar nav {
+  display: flex;
+  gap: var(--space-4);
+}
+
+.navbar nav a {
+  position: relative;
+  font-size: var(--fs-small);
+  font-weight: 500;
+  color: var(--color-ink-soft);
+  padding-block: var(--space-1);
+  transition: color var(--speed) var(--ease);
+}
+
+.navbar nav a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 1.5px;
+  background-color: var(--color-accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--speed) var(--ease);
+}
+
+.navbar nav a:hover,
+.navbar nav a:focus-visible {
+  color: var(--color-ink);
+}
+
+.navbar nav a:hover::after,
+.navbar nav a:focus-visible::after {
+  transform: scaleX(1);
+}
+
+/* -----------------------------------------
+   5. Hero
+------------------------------------------ */
+.hero {
+  position: relative;
+  padding-block: var(--space-7) var(--space-6);
+  overflow: hidden;
+  background-image:
+    radial-gradient(var(--color-border) 1px, transparent 1px);
+  background-size: 28px 28px;
+  background-position: -10px -10px;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, var(--color-bg) 0%, rgba(250, 251, 250, 0.4) 55%, var(--color-bg) 100%);
+  pointer-events: none;
+}
+
+.hero-content {
+  position: relative;
+  max-width: 40rem;
+  animation: rise 700ms var(--ease) both;
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hero-label {
+  font-family: var(--font-display);
+  font-size: var(--fs-small);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: var(--color-accent);
+  margin-bottom: var(--space-2);
+}
+
+.hero h1 {
+  font-size: var(--fs-h1);
+  letter-spacing: -0.02em;
+}
+
+.hero h2 {
+  font-size: clamp(1.15rem, 1.4vw + 0.9rem, 1.5rem);
+  font-weight: 500;
+  color: var(--color-ink-soft);
+  margin-top: var(--space-1);
+  margin-bottom: var(--space-3);
+}
+
+.hero-description {
+  max-width: 32rem;
+  font-size: 1.05rem;
+  margin-bottom: var(--space-4);
+}
+
+.hero-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+/* -----------------------------------------
+   6. Buttons
+------------------------------------------ */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.8rem 1.6rem;
+  font-size: var(--fs-small);
+  font-weight: 600;
+  border-radius: var(--radius);
+  border: var(--border-w) solid transparent;
+  transition: transform var(--speed) var(--ease),
+              background-color var(--speed) var(--ease),
+              border-color var(--speed) var(--ease),
+              color var(--speed) var(--ease);
+}
+
+.btn-primary {
+  background-color: var(--color-accent);
+  color: var(--color-surface);
+}
+
+.btn-primary:hover,
+.btn-primary:focus-visible {
+  background-color: var(--color-accent-dark);
+  transform: translateY(-2px);
+}
+
+.btn-secondary {
+  background-color: transparent;
+  border-color: var(--color-border);
+  color: var(--color-ink);
+}
+
+.btn-secondary:hover,
+.btn-secondary:focus-visible {
+  border-color: var(--color-accent);
+  color: var(--color-accent-dark);
+  transform: translateY(-2px);
+}
+
+/* -----------------------------------------
+   7. About
+------------------------------------------ */
+.about-text {
+  max-width: 42rem;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  font-size: 1.05rem;
+}
+
+/* -----------------------------------------
+   8. Skills
+------------------------------------------ */
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-3);
+}
+
+.skill-card {
+  background-color: var(--color-surface);
+  border: var(--border-w) solid var(--color-border);
+  border-left: 3px solid var(--color-accent);
+  border-radius: var(--radius);
+  padding: var(--space-3);
+  transition: transform var(--speed) var(--ease),
+              box-shadow var(--speed) var(--ease),
+              border-color var(--speed) var(--ease);
+}
+
+.skill-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px -18px rgba(18, 24, 28, 0.35);
+  border-color: var(--color-accent);
+}
+
+.skill-card h3 {
+  font-size: var(--fs-h3);
+  margin-bottom: var(--space-1);
+}
+
+.skill-card p {
+  font-size: var(--fs-small);
+  line-height: 1.55;
+}
+
+/* -----------------------------------------
+   9. Projects
+------------------------------------------ */
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-3);
+}
+
+.project-card {
+  position: relative;
+  background-color: var(--color-surface);
+  border: var(--border-w) solid var(--color-border);
+  border-radius: var(--radius);
+  padding: var(--space-4);
+  display: flex;
+  flex-direction: column;
+  transition: transform var(--speed) var(--ease),
+              box-shadow var(--speed) var(--ease),
+              border-color var(--speed) var(--ease);
+}
+
+.project-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 32px -20px rgba(18, 24, 28, 0.4);
+  border-color: var(--color-accent);
+}
+
+.project-number {
+  font-family: var(--font-display);
+  font-size: var(--fs-small);
+  font-weight: 600;
+  color: var(--color-ink-faint);
+  margin-bottom: var(--space-2);
+}
+
+.project-card h3 {
+  font-size: var(--fs-h3);
+  margin-bottom: var(--space-1);
+}
+
+.project-card p {
+  font-size: var(--fs-small);
+  margin-bottom: var(--space-3);
+}
+
+.project-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: var(--space-3);
+}
+
+.project-tags span {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--color-accent-dark);
+  background-color: var(--color-accent-tint);
+  padding: 0.3rem 0.65rem;
+  border-radius: 999px;
+}
+
+.project-link {
+  margin-top: auto;
+  font-size: var(--fs-small);
+  font-weight: 600;
+  color: var(--color-accent);
+  width: fit-content;
+  transition: gap var(--speed) var(--ease), color var(--speed) var(--ease);
+}
+
+.project-link:hover,
+.project-link:focus-visible {
+  color: var(--color-accent-dark);
+}
+
+/* -----------------------------------------
+   10. Contact
+------------------------------------------ */
+.contact {
+  max-width: 34rem;
+}
+
+.contact > p {
+  margin-bottom: var(--space-3);
+  font-size: 1.05rem;
+}
+
+.contact-links {
+  display: flex;
+  gap: var(--space-2);
+}
+
+.contact-links a {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.75rem 1.5rem;
+  font-size: var(--fs-small);
+  font-weight: 600;
+  border: var(--border-w) solid var(--color-border);
+  border-radius: var(--radius);
+  color: var(--color-ink);
+  transition: border-color var(--speed) var(--ease),
+              color var(--speed) var(--ease),
+              transform var(--speed) var(--ease);
+}
+
+.contact-links a:hover,
+.contact-links a:focus-visible {
+  border-color: var(--color-accent);
+  color: var(--color-accent-dark);
+  transform: translateY(-2px);
+}
+
+/* -----------------------------------------
+   11. Footer
+------------------------------------------ */
+footer {
+  border-top: var(--border-w) solid var(--color-border);
+  padding-block: var(--space-3);
+}
+
+footer p {
+  font-size: var(--fs-small);
+  color: var(--color-ink-faint);
+  text-align: center;
+}
+
+/* -----------------------------------------
+   12. Responsive breakpoints
+------------------------------------------ */
+@media (max-width: 960px) {
+  .skills-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .projects-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 720px) {
+  :root {
+    --space-6: 4rem;
+    --space-7: 5rem;
+  }
+
+  .nav-container {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-2);
+    padding-block: var(--space-2);
+    min-height: auto;
+  }
+
+  .navbar nav {
+    gap: var(--space-3);
+    flex-wrap: wrap;
+  }
+
+  .hero {
+    padding-block: var(--space-5) var(--space-5);
+  }
+
+  .hero-buttons {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .skills-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .projects-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding-inline: var(--space-2);
+  }
+
+  .hero h1 {
+    font-size: 2.4rem;
+  }
+
+  .section {
+    padding-block: var(--space-5);
+  }
+}
